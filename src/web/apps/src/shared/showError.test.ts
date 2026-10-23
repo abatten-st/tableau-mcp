@@ -32,6 +32,7 @@ describe('showError', () => {
   afterEach(() => {
     // Clean up DOM
     document.body.replaceChildren();
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

@@ -56,6 +56,7 @@ describe('handleToolResult', () => {
 
   afterEach(() => {
     document.body.replaceChildren();
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

@@ -14,9 +14,11 @@ const mocks = vi.hoisted(() => ({
 }));
 
 vi.mock('../../../desktop/desktopDiscoverer.js', () => ({
-  DesktopDiscoverer: vi.fn().mockImplementation(() => ({
-    getInstances: mocks.mockGetInstances,
-  })),
+  DesktopDiscoverer: vi.fn().mockImplementation(function () {
+    return {
+      getInstances: mocks.mockGetInstances,
+    };
+  }),
 }));
 
 describe('listInstancesTool', () => {

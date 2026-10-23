@@ -144,15 +144,14 @@ describe('TableauAccessTokenValidator', () => {
           user: { id: 'session-user-id', name: 'user@example.com' },
         }),
       );
-      vi.mocked(RestApi).mockImplementationOnce(
-        () =>
-          ({
-            setBearerToken: mockSetBearerToken,
-            authenticatedServerMethods: {
-              getCurrentServerSession: mockGetCurrentServerSession,
-            },
-          }) as unknown as RestApi,
-      );
+      vi.mocked(RestApi).mockImplementationOnce(function () {
+        return {
+          setBearerToken: mockSetBearerToken,
+          authenticatedServerMethods: {
+            getCurrentServerSession: mockGetCurrentServerSession,
+          },
+        } as unknown as RestApi;
+      });
       const { 'https://tableau.com/userId': _userId, ...payloadWithoutUserId } = basePayload();
       const token = makeBearer(payloadWithoutUserId);
 
@@ -170,15 +169,14 @@ describe('TableauAccessTokenValidator', () => {
       const mockGetCurrentServerSession = vi
         .fn()
         .mockResolvedValue(new Err({ type: 'unauthorized', message: 'unauthorized' }));
-      vi.mocked(RestApi).mockImplementationOnce(
-        () =>
-          ({
-            setBearerToken: vi.fn(),
-            authenticatedServerMethods: {
-              getCurrentServerSession: mockGetCurrentServerSession,
-            },
-          }) as unknown as RestApi,
-      );
+      vi.mocked(RestApi).mockImplementationOnce(function () {
+        return {
+          setBearerToken: vi.fn(),
+          authenticatedServerMethods: {
+            getCurrentServerSession: mockGetCurrentServerSession,
+          },
+        } as unknown as RestApi;
+      });
       const { 'https://tableau.com/userId': _userId, ...payloadWithoutUserId } = basePayload();
       const token = makeBearer(payloadWithoutUserId);
 
@@ -198,15 +196,14 @@ describe('TableauAccessTokenValidator', () => {
           user: { id: 'uid-1', name: 'user@example.com' },
         }),
       );
-      vi.mocked(RestApi).mockImplementationOnce(
-        () =>
-          ({
-            setBearerToken: mockSetBearerToken,
-            authenticatedServerMethods: {
-              getCurrentServerSession: mockGetCurrentServerSession,
-            },
-          }) as unknown as RestApi,
-      );
+      vi.mocked(RestApi).mockImplementationOnce(function () {
+        return {
+          setBearerToken: mockSetBearerToken,
+          authenticatedServerMethods: {
+            getCurrentServerSession: mockGetCurrentServerSession,
+          },
+        } as unknown as RestApi;
+      });
       const token = makeBearer(basePayload());
 
       const result = await validator.validate(token);
@@ -227,15 +224,14 @@ describe('TableauAccessTokenValidator', () => {
           user: { id: 'uid-1', name: 'user@example.com' },
         }),
       );
-      vi.mocked(RestApi).mockImplementationOnce(
-        () =>
-          ({
-            setBearerToken: mockSetBearerToken,
-            authenticatedServerMethods: {
-              getCurrentServerSession: mockGetCurrentServerSession,
-            },
-          }) as unknown as RestApi,
-      );
+      vi.mocked(RestApi).mockImplementationOnce(function () {
+        return {
+          setBearerToken: mockSetBearerToken,
+          authenticatedServerMethods: {
+            getCurrentServerSession: mockGetCurrentServerSession,
+          },
+        } as unknown as RestApi;
+      });
       const token = makeBearer(basePayload());
 
       const result = await validator.validate(token);
@@ -256,15 +252,14 @@ describe('TableauAccessTokenValidator', () => {
           user: { id: 'uid-1', name: 'user@example.com' },
         }),
       );
-      vi.mocked(RestApi).mockImplementationOnce(
-        () =>
-          ({
-            setBearerToken: mockSetBearerToken,
-            authenticatedServerMethods: {
-              getCurrentServerSession: mockGetCurrentServerSession,
-            },
-          }) as unknown as RestApi,
-      );
+      vi.mocked(RestApi).mockImplementationOnce(function () {
+        return {
+          setBearerToken: mockSetBearerToken,
+          authenticatedServerMethods: {
+            getCurrentServerSession: mockGetCurrentServerSession,
+          },
+        } as unknown as RestApi;
+      });
       const token = makeBearer(basePayload());
 
       const result = await validator.validate(token);

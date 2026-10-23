@@ -27,12 +27,14 @@ vi.mock('../../../restApiInstance.js', () => ({
 }));
 
 vi.mock('../../../config.js', () => ({
-  getConfig: vi.fn(() => ({
-    adminToolsEnabled: true,
-    productTelemetryEnabled: false,
-    productTelemetryEndpoint: 'https://test.com',
-    server: 'https://test.tableau.com',
-  })),
+  getConfig: vi.fn(function () {
+    return {
+      adminToolsEnabled: true,
+      productTelemetryEnabled: false,
+      productTelemetryEndpoint: 'https://test.com',
+      server: 'https://test.tableau.com',
+    };
+  }),
 }));
 
 vi.mock('../_lib/mutationGuard.js', async (importOriginal) => {
@@ -47,12 +49,14 @@ vi.mock('../_lib/evidence.js', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../_lib/evidence.js')>();
   return {
     ...actual,
-    RegistryEvidence: vi.fn().mockImplementation(() => ({
-      establish: vi.fn(),
-      verify: vi.fn().mockResolvedValue(true),
-      describeEvidence: () => ({ kind: 'registry-nonce' }),
-      getEstablishedNonce: () => 'mock-nonce-123',
-    })),
+    RegistryEvidence: vi.fn().mockImplementation(function () {
+      return {
+        establish: vi.fn(),
+        verify: vi.fn().mockResolvedValue(true),
+        describeEvidence: () => ({ kind: 'registry-nonce' }),
+        getEstablishedNonce: () => 'mock-nonce-123',
+      };
+    }),
   };
 });
 

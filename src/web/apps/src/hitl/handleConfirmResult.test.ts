@@ -50,6 +50,7 @@ describe('handleConfirmResult', () => {
   });
 
   afterEach(() => {
+    vi.resetAllMocks();
     vi.restoreAllMocks();
   });
 

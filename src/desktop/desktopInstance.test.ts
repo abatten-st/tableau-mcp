@@ -21,12 +21,11 @@ describe('DesktopInstance', () => {
 
   it('should be alive when agent API client is healthy', async () => {
     const MockedAgentApiClient = vi.mocked(AgentApiClient);
-    MockedAgentApiClient.mockImplementation(
-      () =>
-        ({
-          getHealth: vi.fn().mockResolvedValue(true),
-        }) as unknown as AgentApiClient,
-    );
+    MockedAgentApiClient.mockImplementation(function () {
+      return {
+        getHealth: vi.fn().mockResolvedValue(true),
+      } as unknown as AgentApiClient;
+    });
 
     const instance = new DesktopInstance({
       pid: 12345,
@@ -40,12 +39,11 @@ describe('DesktopInstance', () => {
 
   it('should not be alive when agent API client is not healthy', async () => {
     const MockedAgentApiClient = vi.mocked(AgentApiClient);
-    MockedAgentApiClient.mockImplementation(
-      () =>
-        ({
-          getHealth: vi.fn().mockResolvedValue(false),
-        }) as unknown as AgentApiClient,
-    );
+    MockedAgentApiClient.mockImplementation(function () {
+      return {
+        getHealth: vi.fn().mockResolvedValue(false),
+      } as unknown as AgentApiClient;
+    });
 
     const instance = new DesktopInstance({
       pid: 12345,

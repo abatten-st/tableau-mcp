@@ -123,7 +123,7 @@ describe('server', () => {
         idempotentHint: true,
         openWorldHint: false,
       },
-      callback: vi.fn(),
+      callback: vi.fn() as any,
       disabled: false,
       requiredApiScopes: [],
       minRequiredRole: SiteRole.VIEWER,
