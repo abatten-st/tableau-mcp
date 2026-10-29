@@ -136,7 +136,7 @@ describe('server', () => {
         htmlPath: '<html><body>Test App UI</body></html>',
         ...(opts?.hideWhenUnsupported ? { hideWhenUnsupported: true } : {}),
       },
-    };
+    } as unknown as WebTool<any>;
   }
 
   it('should register tools', async () => {
