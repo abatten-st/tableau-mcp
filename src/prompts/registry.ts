@@ -12,7 +12,9 @@ export type WebPromptRegistration<Args extends ZodRawShape = ZodRawShape> = {
   // Returns true if the prompt should be skipped for the current server config.
   disabled: (config: Config) => boolean;
   callback: (
-    args: Args extends ZodRawShape ? z.objectOutputType<Args, z.ZodTypeAny> : Record<string, never>,
+    args: [ZodRawShape] extends [Args]
+      ? Record<string, string | undefined>
+      : { [K in keyof Args]: z.output<Args[K]> },
   ) => GetPromptResult | Promise<GetPromptResult>;
 };
 

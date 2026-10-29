@@ -1,7 +1,7 @@
 import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 import { z } from 'zod';
-import { fromError } from 'zod-validation-error/v3';
+import { fromError } from 'zod-validation-error/v4';
 
 dotenv.config();
 process.env.ADMIN_TOOLS_ENABLED = 'true';
