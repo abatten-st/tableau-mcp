@@ -1,7 +1,25 @@
 import z from 'zod';
+import { fromError } from 'zod-validation-error/v4';
 
 export const FilterOperatorSchema = z.enum(['eq', 'in', 'gt', 'gte', 'lt', 'lte']);
 export type FilterOperator = z.infer<typeof FilterOperatorSchema>;
+
+/**
+ * Parse a filter field or operator token. Zod 4's default enum error no longer
+ * includes the received value, so wrap failures with the raw token for callers
+ * (and LLM retries) that need to know which input was rejected.
+ */
+export function parseFilterToken<T>(
+  schema: z.ZodType<T>,
+  value: string,
+  kind: 'field' | 'operator',
+): T {
+  const result = schema.safeParse(value);
+  if (!result.success) {
+    throw new Error(`Invalid filter ${kind} '${value}': ${fromError(result.error).toString()}`);
+  }
+  return result.data;
+}
 
 export function isISO8601DateTime(value: string): boolean {
   // Basic ISO 8601 regex (covers most common cases)
@@ -165,8 +183,8 @@ export function parseAndValidateFilterString<
 
     let value = valueParts.join(':');
 
-    const field = filterFieldSchema.parse(fieldRaw);
-    const operator = FilterOperatorSchema.parse(operatorRaw);
+    const field = parseFilterToken(filterFieldSchema, fieldRaw, 'field');
+    const operator = parseFilterToken(FilterOperatorSchema, operatorRaw, 'operator');
 
     if (!isOperatorAllowed(field, operator)) {
       throw new Error(

@@ -44,9 +44,7 @@ describe('parseAndValidateFilterString', () => {
         allowedOperatorsByField,
         filterFieldSchema: FilterFieldSchema,
       }),
-    ).toThrowError(
-      "Invalid enum value. Expected 'name' | 'projectName' | 'createdAt' | 'updatedAt', received 'notAField'",
-    );
+    ).toThrowError("Invalid filter field 'notAField'");
   });
 
   it('throws on invalid operator', () => {
@@ -56,9 +54,7 @@ describe('parseAndValidateFilterString', () => {
         allowedOperatorsByField,
         filterFieldSchema: FilterFieldSchema,
       }),
-    ).toThrowError(
-      "Invalid enum value. Expected 'eq' | 'in' | 'gt' | 'gte' | 'lt' | 'lte', received 'badop'",
-    );
+    ).toThrowError("Invalid filter operator 'badop'");
   });
 
   it('throws on invalid operator for field', () => {

@@ -17,7 +17,7 @@ import {
 const paramsSchema = {
   customViewId: z.string(),
   viewFilters: z
-    .record(z.string())
+    .record(z.string(), z.string())
     .optional()
     .describe('Optional map of view filter field names to values.'),
 };

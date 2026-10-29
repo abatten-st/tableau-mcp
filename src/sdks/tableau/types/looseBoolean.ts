@@ -16,18 +16,21 @@ import { z } from 'zod';
  * infers as a REQUIRED `boolean` on the output side while still accepting an
  * absent key on the input side.
  */
-export const looseBooleanFalsy = z.unknown().transform((value) => {
-  if (typeof value === 'boolean') {
-    return value;
-  }
-  if (typeof value === 'string') {
-    const normalized = value.trim().toLowerCase();
-    if (normalized === 'true') {
-      return true;
+export const looseBooleanFalsy = z
+  .unknown()
+  .optional()
+  .transform((value) => {
+    if (typeof value === 'boolean') {
+      return value;
     }
-    if (normalized === 'false') {
-      return false;
+    if (typeof value === 'string') {
+      const normalized = value.trim().toLowerCase();
+      if (normalized === 'true') {
+        return true;
+      }
+      if (normalized === 'false') {
+        return false;
+      }
     }
-  }
-  return false;
-});
+    return false;
+  });
