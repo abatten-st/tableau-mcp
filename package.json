@@ -123,7 +123,7 @@
   "overrides": {
     "@hono/node-server": "2.1.5",
     "@typescript-eslint/typescript-estree": {
-      "minimatch": "11.0.4"
+      "minimatch": "11.0.1"
     },
     "axios": "$axios",
     "body-parser": "2.4.0",
