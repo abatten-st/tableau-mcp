@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "waivers": [
+    {
+      "fingerprint": "0469e801d013eed4",
+      "ghsa": "GHSA-g3hv-75wg-m249",
+      "package": "minimatch",
+      "version": "3.1.5",
+      "scope": "dev-only",
+      "reason": "Hoisted minimatch 3.1.x used only by eslint and its plugins (dev lint tooling). No patched 3.x exists. minimatch 11 breaks eslint's CommonJS import because 11's export is an object rather than a function. Nested @typescript-eslint/typescript-estree copy is pinned to 11.0.1 (first patched 11.x for GHSA-g3hv-75wg-m249; 11.0.4 is inside min-release-age=7). Revisit if eslint adopts a compatible minimatch or a patched 3.x is published.",
+      "expires": "2027-01-31",
+      "approvedBy": "andy"
+    }
+  ]
+}

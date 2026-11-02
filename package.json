@@ -1,7 +1,7 @@
 {
   "name": "@tableau/mcp-server",
   "description": "Helping agents see and understand data.",
-  "version": "4.13.10",
+  "version": "4.13.11",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tableau/tableau-mcp.git"
@@ -123,7 +123,7 @@
   "overrides": {
     "@hono/node-server": "2.1.5",
     "@typescript-eslint/typescript-estree": {
-      "minimatch": "11.0.4"
+      "minimatch": "11.0.1"
     },
     "axios": "$axios",
     "body-parser": "2.4.0",
