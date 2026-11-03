@@ -78,6 +78,7 @@ export default [
       'docs/.docusaurus/**',
       'docs/build/**',
       '.claude/**',
+      '.cursor/**',
       '.worktrees/**',
     ],
   },
