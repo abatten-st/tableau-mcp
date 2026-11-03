@@ -3,8 +3,13 @@ import dotenv from 'dotenv';
 import { z } from 'zod';
 import { fromError } from 'zod-validation-error/v4';
 
+import { applyPlaywrightChromiumGuard } from './src/testing/playwrightChromiumGuard.js';
+
 dotenv.config();
 process.env.ADMIN_TOOLS_ENABLED = 'true';
+
+// Fail-closed Chromium/Chrome version + sandbox policy (see src/testing/playwrightChromiumGuard.ts).
+const { use: chromiumUse } = applyPlaywrightChromiumGuard();
 
 const envSchema = z.object({
   SERVER: z.string(),
@@ -27,6 +32,7 @@ const env = envParseResult.data;
 export default defineConfig({
   testDir: './tests/oauth/tableau-authz/',
   testMatch: '**/*.test.ts',
+  globalSetup: './src/testing/playwrightGlobalSetup.ts',
   timeout: 90_000,
   expect: {
     // Timeout for each expect()
@@ -51,6 +57,8 @@ export default defineConfig({
     testIdAttribute: 'data-tb-test-id',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    // Prefer patched Chrome stable on laptops; never disable the sandbox outside containers.
+    ...chromiumUse,
   },
 
   projects: [
