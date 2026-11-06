@@ -290,10 +290,19 @@ describe('playwrightChromiumGuard', () => {
   });
 
   describe('host inspectors', () => {
-    it('confirms Playwright 1.64.1 still bundles Chromium 156.0.8078.4 (unpatched)', () => {
+    it('confirms Playwright 1.65.0 bundles Chromium 158.0.8127.18 (patched)', () => {
       const bundled = readBundledChromiumVersion();
-      expect(bundled).toBe('156.0.8078.4');
-      expect(isBrowserVersionAtLeast(bundled ?? '', MIN_SAFE_CHROMIUM_VERSION)).toBe(false);
+      expect(bundled).toBe('158.0.8127.18');
+      expect(isBrowserVersionAtLeast(bundled ?? '', MIN_SAFE_CHROMIUM_VERSION)).toBe(true);
+
+      const decision = resolveChromiumGuard(host({ bundledChromiumVersion: bundled }));
+      expect(decision.allow).toBe(true);
+      expect(decision.channel).toBeUndefined();
+      expect(decision.usingUnpatchedBrowser).toBe(false);
+      expect(decision.selectedBrowser).toBe('bundled-chromium');
+      expect(decision.chromiumSandbox).toBe(true);
+      expect(() => assertChromiumGuard(decision)).not.toThrow();
+      expect(() => assertLaunchedBrowserVersion(bundled as string, decision)).not.toThrow();
     });
 
     it('reads the bundled Chromium version from browsers.json', () => {

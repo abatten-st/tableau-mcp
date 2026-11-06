@@ -25,6 +25,6 @@ a shared host.
 
 The Chromium sandbox is never disabled outside CI/containers. Do not pass `--no-sandbox`.
 
-When a Playwright **stable** (not alpha/beta/`@next`) release bundles Chromium >= 156.0.8078.73,
-bump `@playwright/test` again. Keep the guard as defense in depth; laptops can then use the bundled
-browser if it meets the minimum.
+`@playwright/test@1.65.0` (2026-11-05) bundles Chromium 158.0.8127.18, which is above the
+156.0.8078.73 floor (CVE-2026-118306 / 118331 / 118348 / 118344). Keep the guard as defense in
+depth; laptops can use the bundled browser.
